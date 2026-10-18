@@ -137,11 +137,17 @@ pub struct GranularEventPayload {
 #[contracttype]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct TransferEventPayload {
+    /// Address sending the transfer.
     pub sender: Address,
+    /// Address receiving the transfer.
     pub receiver: Address,
+    /// Address of the transferred asset.
     pub asset: Address,
+    /// Amount supplied to the transfer event.
     pub amount: i128,
+    /// Fee supplied to the transfer event.
     pub fee: i128,
+    /// Timestamp from the ledger when this event was emitted.
     pub timestamp: u64,
 }
 
