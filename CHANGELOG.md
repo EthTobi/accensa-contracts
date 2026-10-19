@@ -8,6 +8,10 @@ breaking changes bump the **minor** version, and they are called out as such.
 
 ## [Unreleased]
 
+- **Documentation (issues #766, #767, #768, #770): document exported struct fields.**
+  Added field-level rustdoc comments to `AnchorEvent`, `TransferEventPayload`,
+  `OptimisticProposal`, and `RefundVector`. No contract behavior or data shapes
+  changed.
 - **`reputation` (issue #621): credit key and event-payload parity tests.** Test-only
   addition to `contracts/reputation/src/credit_score_test.rs` pinning the storage and
   event surface of the credit scorer: `CreditDataKey::CompletionEscrow(u64)` replay
