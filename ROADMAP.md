@@ -1,5 +1,9 @@
 # Roadmap
 
+## Issue #743: rustdoc for liquid_staking's 6 public items
+
+- [x] Document `LiquidStakingError`, `Mint`, `Burn`, `ExchangeRate`, `UserData` and `LiquidStaking` (#743)
+  - `contracts/governance/src/liquid_staking.rs` — doc comments only; each item states its role, no signature, body or reorder change, and `missing_docs` is deliberately not enabled
 ## Issue #780: rustdoc for ShardStats's 5 exported fields
 
 - [x] Document the struct's 5 public fields (#780)
