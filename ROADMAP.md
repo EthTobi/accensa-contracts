@@ -164,6 +164,12 @@
 
 ## Issue #740: rustdoc for `common/events`' 8 module symbols
 
+- [x] `prune_batches` answers `Error::NotInitialized` instead of aborting the host call when `Router`, `EndBatchId` or `PrunedUpTo` is absent (before construction or after the instance entry ages out) (#679)
+
+## Issue #746: rustdoc for governance/lib's 4 undocumented public items
+
+- [x] Document `Error`, `DataKey`, `RingSignature` and `Governance` (#746)
+  - `contracts/governance/src/lib.rs` — doc comments only, no signature, body or test changes
 - [x] Document `vault`, `channel`, `receipt`, `bridge`, `gov`, `treasury`, `multisig` and `auth` (#740)
   - `contracts/common/src/events.rs` — doc comments only, no signature, body or ordering change
 
