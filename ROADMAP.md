@@ -118,6 +118,25 @@
   - `contracts/refund-vault/src/settlement.rs` — typed `Error::MathOverflow` instead of a host abort
   - `contracts/refund-vault/src/preview_settlement_overflow_tests.rs` — boundary test pins both operands at `i128::MAX` and asserts the returned error variant
 
+## Issue #696: cover `governance::burn` and the ragequit path
+
+- [x] Cover `LiquidStaking::burn`, `ragequit::{is_approved, process}` and the `ArityMismatch`/`InvalidMembers` constructor variants (#696)
+  - `contracts/governance/tests/receipt_anchor_admin.rs` — integration tests only, no `src/` changes
+
+## Issue #697: cover `receipt-anchor::{topic, publish, canonical_message}`
+
+- [x] Cover `ReceiptAction::topic`, `events::publish` and `signatures::canonical_message` (#697)
+  - `contracts/receipt-anchor/src/budget_test.rs` — tests only, no contract source changes
+
+## Issue #698: cover `receipt-anchor::{verify_batch_zk_proof, fold_proof, get_min_anchor_interval}`
+
+- [x] Cover `zk_verifier::verify_batch_zk_proof`, `merkle::fold_proof` and `ReceiptAnchor::get_min_anchor_interval` (#698)
+  - `contracts/receipt-anchor/src/fuzz_test.rs` — tests only, no contract source changes
+
+## Issue #695: cover `cross-chain::{execute_withdrawal_to_evm, get_destination_chain_id, is_trusted_peer}`
+
+- [x] Cover `outbound::execute_withdrawal_to_evm`, `get_destination_chain_id` and `is_trusted_peer` (#695)
+  - `contracts/cross-chain/src/wormhole_test.rs` — tests only, no contract source changes
 ## Issue #652: test: Pin the oracle admin getter and the round staleness bound
 
 - [x] Pin `get_admin` unset/bound states, the typed `AlreadyInitialized` double-initialize guard, and the inclusive staleness boundary in `contracts/oracle/src/staleness_test.rs` (#652)

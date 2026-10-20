@@ -376,6 +376,43 @@ exception: while the project is below `1.0.0`, breaking changes bump the
 - **`refund-vault` (issue #690): `set_tier_ladder` uses a checked lookup.**
   `set_tier_ladder` reads the selected rung's fee with `tiers.get(current_tier)` followed by a typed `Error::InvalidTierLadder` fallback (instead of unwrapping), so a missing rung resolves to the crate's error and validated ladders retain their existing behaviour.
 
+- **`cross-chain` (issue #695): tests for `execute_withdrawal_to_evm`, `get_destination_chain_id` and `is_trusted_peer`.**
+  Extended `contracts/cross-chain/src/wormhole_test.rs` with tests that name and
+  drive three previously untested public functions:
+  `outbound::execute_withdrawal_to_evm` is asserted to burn the wrapped asset and
+  return the exact `OutboundBridgePayload`, and to reject zero/negative amounts
+  with the typed `Error::InvalidAmount`; `get_destination_chain_id` returns the
+  configured chain id and `Error::NotInitialized` when unset; and
+  `is_trusted_peer` reflects `set_trusted_peer` registration, keyed on both the
+  source chain id and the sender. No contract behaviour change.
+- **`receipt-anchor` (issue #698): tests for `verify_batch_zk_proof`, `fold_proof` and `get_min_anchor_interval`.**
+  Extended `contracts/receipt-anchor/src/fuzz_test.rs` with tests that name and
+  drive three previously untested public functions:
+  `zk_verifier::verify_batch_zk_proof` is asserted to reject zero-count, empty,
+  short and all-zero-component proofs while accepting a well-formed one;
+  `merkle::fold_proof` is pinned to return the leaf for an empty proof and the
+  sorted-pair hash at each level otherwise; and
+  `ReceiptAnchor::get_min_anchor_interval` is read before and after
+  `set_min_anchor_interval`. No contract behaviour change.
+- **`receipt-anchor` (issue #697): tests for `topic`, `publish` and `canonical_message`.**
+  Extended `contracts/receipt-anchor/src/budget_test.rs` with tests that name and
+  drive the three previously untested public functions in the canonical event
+  schema: `ReceiptAction::topic` is asserted for both arms, `events::publish` is
+  asserted to emit the exact `(receipt, action, anchor_id)` topic tuple and
+  payload data for the anchor and prune actions, and
+  `signatures::canonical_message` is pinned byte-for-byte against the documented
+  layout, including that the signer mask is part of the signed bytes. No contract
+  behaviour change.
+- **`governance` (issue #696): tests for `burn`, the ragequit path and constructor error variants.**
+  Extended `contracts/governance/tests/receipt_anchor_admin.rs` with client-driven
+  integration tests for the previously untested public surface:
+  `LiquidStaking::burn` is asserted to redeem locked underlying at the current
+  exchange rate after the lock epoch and publish one `Burn` event, and to answer
+  a zero amount or premature redemption with the typed error variant;
+  `ragequit::is_approved` gates on the proposal's quorum so `ragequit::process`
+  refuses a dissenter's exit with `ProposalNotApproved` and rejects a member who
+  voted yes; and the constructor surfaces `ArityMismatch` for a length mismatch
+  and `InvalidMembers` for an invalid member set. No contract behaviour change.
 - **`governance` (issue #552): test instance storage TTL eviction returns typed errors.**
   Added tests in `contracts/governance/src/test.rs` asserting that `propose` and
   `execute` operations return typed errors `InvalidVotingPeriod` and `InvalidMembers`
