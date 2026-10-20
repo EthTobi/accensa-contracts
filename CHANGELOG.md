@@ -57,6 +57,12 @@ exception: while the project is below `1.0.0`, breaking changes bump the
   so an off-chain decoder can read the event without inferring either from the
   field name. Doc comments only — struct layout, field types and the topic
   tuple are unchanged.
+- **`cross-chain` (issue #643): cover non-admin auth rejection for admin setters.**
+  Extended `contracts/cross-chain/src/test.rs` with negative-path tests
+  asserting that `set_guardian_set`, `set_axelar_gateway`, `set_trusted_peer`
+  and `set_layerzero_endpoint` reject non-admin callers before any storage
+  write, plus admin happy-path tests pinning the expected stored values.
+  Test-only — no contract behavior change.
 - **`oracle` (issue #652): pin the admin getter and the round staleness bound.** New
   `staleness_test` module in `contracts/oracle/src/staleness_test.rs`, registered
   with a single `mod staleness_test;` line, asserting `get_admin` returns `None`
