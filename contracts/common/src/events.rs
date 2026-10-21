@@ -143,9 +143,9 @@ pub struct TransferEventPayload {
     pub receiver: Address,
     /// Address of the transferred asset.
     pub asset: Address,
-    /// Amount supplied to the transfer event.
+    /// Amount attributed to this transfer, in units of `asset`.
     pub amount: i128,
-    /// Fee supplied to the transfer event.
+    /// Fee attributed to this transfer, in the same units as `amount`.
     pub fee: i128,
     /// Timestamp from the ledger when this event was emitted.
     pub timestamp: u64,

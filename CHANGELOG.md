@@ -8,6 +8,10 @@ breaking changes bump the **minor** version, and they are called out as such.
 
 ## [Unreleased]
 
+- **Documentation (issues #766, #767, #768, #770): document exported struct fields.**
+  Added field-level rustdoc comments to `AnchorEvent`, `TransferEventPayload`,
+  `OptimisticProposal`, and `RefundVector`. No contract behavior or data shapes
+  changed.
 - **`refund-vault` (issue #685): report a missing payment token from
   `deploy_to_yield` instead of aborting.** The `DataKey::Token` read in
   `contracts/refund-vault/src/lib.rs` was an `unwrap()`, so a deployment that
